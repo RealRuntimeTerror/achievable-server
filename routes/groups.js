@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Activity = require('../models/activity.model')
-const getById = require('../middleware/get-by-id')
+const getActivity = require('../middleware/get-by-id')
 
 //getting all
 router.get('/', async (req,res) => {
@@ -16,7 +16,7 @@ router.get('/', async (req,res) => {
     }
 })
 //getiing activity
-router.get('/:id',getById({type: "activity"}), (req,res) => {
+router.get('/:id',getActivity, (req,res) => {
     res.send(res.activity)
 })
 
@@ -35,7 +35,7 @@ router.post('/', async (req,res) => {
     }
 })
 //updating activity --> patch cause we only want to update one field
-router.patch('/:id', getById({type: "activity"}), async (req,res) => {
+router.patch('/:id', getActivity, async (req,res) => {
     if (req.body.activityName != null){
         res.activity.activityName = req.body.activityName
     }
@@ -52,7 +52,7 @@ router.patch('/:id', getById({type: "activity"}), async (req,res) => {
 })
 
 //deletion activity
-router.delete('/:id', getById({type: "activity"}), async (req,res) => {
+router.delete('/:id', getActivity, async (req,res) => {
     try{
         res.activity.remove()
         res.json({message: 'Deleted Activity'})

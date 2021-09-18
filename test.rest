@@ -2,7 +2,7 @@ GET http://localhost:3000/activities
 
 ###
 
-GET http://localhost:3000/activities/6144d7210d23b6e550735521
+GET http://localhost:3000/activities/614565dafad5998553b03365
 
 ###
 
@@ -10,7 +10,7 @@ POST http://localhost:3000/activities
 Content-Type: : application/json
 
 {
-    "activityName": "CompMath",
+    "activityName": "BioInfo",
     "description": "L3S1 Module"
 }
 
@@ -20,9 +20,9 @@ DELETE http://localhost:3000/activities/6144d7210d23b6e550735521
 
 ###
 
-PATCH http://localhost:3000/activities/61455574896fd97d188581d3
+PATCH http://localhost:3000/activities/614565dafad5998553b03365
 Content-Type: application/json
 
 {
-    "activityName": "NewModule"
+    "activityName": "Automata Theory"
 }

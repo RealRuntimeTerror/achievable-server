@@ -5,6 +5,9 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 
+const activitiesRouter = require('./routes/activities')
+const groupsRouter = require('./routes/groups')
+
 mongoose.connect(process.env.DATABASE_URL_CLUSTER,
   {
     useNewUrlParser: true,
@@ -19,7 +22,8 @@ db.once('open', () => console.log('db opened'))
 
 app.use(express.json()) //lets server accept json
 
-const activitiesRouter = require('./routes/activities')
+
 app.use('/activities', activitiesRouter)
+app.use('/groups', groupsRouter)
 
 app.listen(3000, console.log("Server started"))
