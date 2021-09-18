@@ -1,4 +1,5 @@
 const Activity = require('../models/activity.model')
+const User = require('../models/user.model')
 
 
 module.exports = function getById (types) {
@@ -27,6 +28,20 @@ module.exports = function getById (types) {
 
     }
     else {
-
+        return async function (req,res, next){
+            try{
+                user = await User.findById(req.params.id)
+                if(user == null){
+                    return res.status(404).json({message: 'cannot find user'})
+                }
+            }
+            catch(err){
+                res.status(500).json({
+                    message: err.message
+                })
+            }
+            res.user = user
+            next()
+        }
     }
 }

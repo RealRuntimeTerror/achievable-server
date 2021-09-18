@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 
 const activitiesRouter = require('./routes/activities')
 const groupsRouter = require('./routes/groups')
+const usersRouter = require('./routes/users')
 
 mongoose.connect(process.env.DATABASE_URL_CLUSTER,
   {
@@ -25,5 +26,6 @@ app.use(express.json()) //lets server accept json
 
 app.use('/activities', activitiesRouter)
 app.use('/groups', groupsRouter)
+app.use('/users', usersRouter)
 
 app.listen(3000, console.log("Server started"))
