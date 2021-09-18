@@ -2,4 +2,27 @@ GET http://localhost:3000/activities
 
 ###
 
-GET http://localhost:3000/activities/34
+GET http://localhost:3000/activities/6144d7210d23b6e550735521
+
+###
+
+POST http://localhost:3000/activities
+Content-Type: : application/json
+
+{
+    "activityName": "CompMath",
+    "description": "L3S1 Module"
+}
+
+###
+
+DELETE http://localhost:3000/activities/6144d7210d23b6e550735521
+
+###
+
+PATCH http://localhost:3000/activities/61455574896fd97d188581d3
+Content-Type: application/json
+
+{
+    "activityName": "NewModule"
+}
