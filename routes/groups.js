@@ -1,61 +1,65 @@
 const express = require('express')
 const router = express.Router()
-const Activity = require('../models/activity.model')
-const getActivity = require('../middleware/get-by-id')
+const Group = require('../models/group.model')
+const getById = require('../middleware/get-by-id')
 
-//getting all
+//getting all groups
 router.get('/', async (req,res) => {
     try{
-        const activities = await Activity.find()
-        res.json(activities)
+        const groups = await Group.find()
+        res.json(groups)
     }
     catch (err){
-        res.status(500).json({
-            message: err.message
-        })
+        res.status(500).json({message: err.message})
     }
 })
-//getiing activity
-router.get('/:id',getActivity, (req,res) => {
-    res.send(res.activity)
+
+//getiing a group
+router.get('/:id',getById({type: "group"}), (req,res) => {
+    res.send(res.group)
 })
 
-//creating activity
+//creating group
 router.post('/', async (req,res) => {
-    const activity = new Activity({
-        activityName: req.body.activityName,
-        description: req.body.description
+    const group = new Group({
+        groupname: req.body.groupname,
+        name: req.body.name,
+        password: req.body.password
     })
     try{
-        const newActivity = await activity.save();
-        res.status(201).json(newActivity) //201 - creation successful
+        const newGroup = await group.save();
+        res.status(201).json(newGroup) //201 - creation successful
     }
     catch(err){
         res.status(400).json({message: err.message})//400 client side error - bad input
     }
 })
-//updating activity --> patch cause we only want to update one field
-router.patch('/:id', getActivity, async (req,res) => {
-    if (req.body.activityName != null){
-        res.activity.activityName = req.body.activityName
+
+//updating group --> patch cause we only want to update one field
+router.patch('/:id', getById({type: "group"}), async (req,res) => {
+    if (req.body.groupname != null){
+        res.group.groupname = req.body.groupname
     }
-    if (req.body.description != null){
-        res.activity.description = req.body.description
+    if (req.body.name != null){
+        res.group.name = req.body.name
+    }
+    if (req.body.password != null){
+        res.group.password = req.body.password
     }
     try{
-        const updatedActivity = await res.activity.save()
-        res.json(updatedActivity)
+        const updatedGroup = await res.group.save()
+        res.json(updatedGroup)
     }
     catch (err){
         res.status(400).json({message: err.message})
     }
 })
 
-//deletion activity
-router.delete('/:id', getActivity, async (req,res) => {
+//deletion 
+router.delete('/:id', getById({type: "group"}), async (req,res) => {
     try{
-        res.activity.remove()
-        res.json({message: 'Deleted Activity'})
+        res.group.remove()
+        res.json({message: 'Deleted Group'})
     }
     catch(err){
         res.status(500).json({message: err.message})
