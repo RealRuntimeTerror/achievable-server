@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const Log = require('../models/log.model')
 const getById = require('../middleware/get-by-id')
+const User = require('../models/user.model')
+const Activity = require('../models/activity.model')
 
 //getting all logs
 router.get('/', async (req,res) => {
@@ -23,12 +25,20 @@ router.get('/:id',getById({type: "log"}), (req,res) => {
 
 //creating log
 router.post('/', async (req,res) => {
+    try{
+
+    const foundUser = await User.findOne({username: req.body.username})
+    const foundActivity = await Activity.findOne({activityName: req.body.activityName})
+    
+    if(foundUser == null || foundActivity == null){
+        throw new Error('could not find the activity or the user')
+    }
     const log = new Log({
-        user: req.body.user,
-        acitvity: req.body.activity,
+        user: req.body.username,
+        activity: req.body.activityName,
         noHours: req.body.noHours
     })
-    try{
+    
         const newLog = await log.save();
         res.status(201).json(newLog) //201 - creation successful
     }

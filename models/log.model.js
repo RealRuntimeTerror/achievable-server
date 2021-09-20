@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 
 const logSchema = new Schema(
   {
-    user: { type: User, required: true },
-    activity: { type: Activity, required: true },
+    user: { type: String, required: true },
+    activity: { type: String, required: true },
     noHours: { type: String, default: "" },
   },
   {

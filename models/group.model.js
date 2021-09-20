@@ -6,8 +6,8 @@ const Schema = mongoose.Schema;
 const groupSchema = new Schema(
   {
     groupName: { type: String, required: true },
-    members: [{ type: User, default: null }],
-    activities: [{ type: Activity, default: null }],
+    members: [{ type: String, default: null }],
+    activities: [{ type: String, default: null }],
   },
   {
     timestamps: true,
