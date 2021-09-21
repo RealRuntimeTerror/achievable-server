@@ -22,9 +22,9 @@ router.get('/:id',getById({type: "group"}), (req,res) => {
 //creating group
 router.post('/', async (req,res) => {
     const group = new Group({
-        groupname: req.body.groupname,
-        name: req.body.name,
-        password: req.body.password
+        groupName: req.body.groupName,
+        members: req.body.members,
+        activities: req.body.activities
     })
     try{
         const newGroup = await group.save();
