@@ -22,3 +22,8 @@ test('should sign up for a user', async () => {
     })
     .expect(201);
 })
+
+test('should show user1\'s details', async() =>{
+    await request(app).get('/users/')
+    .expect(200);
+})
