@@ -2,6 +2,8 @@ const request = require('supertest')
 const app = require('../app')
 const Group = require('../models/group.model')
 
+var group; 
+
 const group1 = {
     groupName: "testgroup1",
     members: ["uname1","uname2"],
@@ -11,7 +13,7 @@ const group1 = {
 
 beforeEach( async() => {
     await Group.deleteMany({})
-    await Group(group1).save()
+    group = await Group(group1).save();
 })
 
 test('should add a new group', async() => {
@@ -29,4 +31,21 @@ test('should add a new group', async() => {
 test('should show 1 group', async() => {
     await request(app).get('/groups/')
     .expect(200)
+    .then((response) => {
+        expect(Array.isArray(response.body)).toBeTruthy();
+        expect(response.body.length).toEqual(1);
+    })
 })
+
+test('verify get by id', async() => {
+
+    await request(app).get(`/groups/${group.id}`)
+    .expect(200)
+    .then((response) => {
+        
+        expect(response.body.groupName).toBe(group.groupName);
+        expect(response.body.members).toEqual(group.members);
+        expect(response.body.activities).toEqual(group.activities);
+    })
+});
+

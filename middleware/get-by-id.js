@@ -5,8 +5,9 @@ const Group = require('../models/group.model')
 
 
 module.exports = function getById (types) {
-    if(types.type = "activity"){
+    if(types.type === "activity"){
         return async function (req,res, next){
+            var activity;
             try{
                 activity = await Activity.findById(req.params.id)
                 if(activity == null){
@@ -18,12 +19,12 @@ module.exports = function getById (types) {
                     message: err.message
                 })
             }
-            res.activity = activity
+            res.activity = activity;
             next()
         }
         
     }
-    else if (types.type = "group"){
+    else if (types.type === "group"){
         return async function (req,res, next){
             try{
                 group = await Group.findById(req.params.id)
@@ -40,7 +41,7 @@ module.exports = function getById (types) {
             next()
         }
     }
-    else if (types.type = "log"){
+    else if (types.type === "log"){
         return async function (req,res, next){
             try{
                 log = await Log.findById(req.params.id)
