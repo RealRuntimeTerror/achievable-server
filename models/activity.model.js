@@ -8,4 +8,6 @@ const activitySchema = new mongoose.Schema(
   { timestamps: true }
 )
 
+module.exports = activitySchema;
 module.exports = mongoose.model("Activity", activitySchema);
+

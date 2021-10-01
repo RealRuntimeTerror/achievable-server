@@ -3,17 +3,30 @@ const Activity = require("./activity.model");
 const User = require("./user.model");
 const Schema = mongoose.Schema;
 
-// const userSchema = new Schema({
-//   username: { type: String, required: true, unique: true },
-//   name: { type: String, default: "" },
-//   password: { type: String, required: true },
-// });
+const sessionSchema = new Schema(
+  {
+    userID: {type:String, required: true},
+    duration: {type: Number, default: 2}
+  },
+  { timestamps: true }
+);
+
+const activitySchema = new Schema(
+  {
+    activityName: { type: String, required: true},
+    description: { type: String },
+    activityColor: {type:String, default: "blue"},
+    sessions: [{type: sessionSchema, default: null}]
+  },
+  { timestamps: true }
+);
+
 
 const groupSchema = new Schema(
   {
     groupName: { type: String, required: true },
-    members: [{ type: User.userSchema, default: null }], 
-    activities: [{ type: String, default: null }],
+    adminId: {type: String, required: true},
+    activities: [{type:activitySchema, default: null}],
   },
   {
     timestamps: true,

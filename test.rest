@@ -1,11 +1,10 @@
+###
+## ACTIVITY ################################
 GET http://localhost:3000/activities
 
 ###
-GET http://localhost:3000/users
 
-###
-
-GET http://localhost:3000/activities/614565dafad5998553b03365
+GET http://localhost:3000/activities/614565c5fad5998553b03362
 
 ###
 
@@ -29,3 +28,37 @@ Content-Type: application/json
 {
     "activityName": "Automata Theory"
 }
+
+
+### USERS ######################################################
+###
+GET http://localhost:3000/users
+
+###
+
+GET http://localhost:3000/users/614574e8339c997d94ef84e2
+
+
+### GROUPS ########################################################
+###
+GET http://localhost:3000/groups
+
+###
+GET http://localhost:3000/groups/6149d25a013862749ae85cb9
+
+###
+POST http://localhost:3000/groups
+Content-Type: application/json
+
+{
+    "groupName": "akirao",
+    "adminId": "G0002"
+}
+
+### LOGS ############################################################
+###
+GET http://localhost:3000/logs
+
+###
+
+GET http://localhost:3000/logs/61478567fffc4621652debf4
