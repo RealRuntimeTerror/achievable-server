@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user.model')
+const Group = require('../models/group.model')
 const getById = require('../middleware/get-by-id')
 
 //getting all users
@@ -16,24 +17,52 @@ router.get('/', async (req, res) => {
     }
 })
 
-//getiing a user
-router.get('/:id', getById({ type: "user" }), (req, res) => {
-    res.send(res.user)
-})
+//User sign-in/ sign-up
+router.post('/auth', async (req, res) => {
+    const { body } = req;
+    const {name, googleId, imageUrl} = body;
 
-//creating user
-router.post('/', async (req, res) => {
-    const user = new User({
-        username: req.body.username,
-        name: req.body.name,
-        password: req.body.password
-    })
     try {
-        const newUser = await user.save();
-        res.status(201).json(newUser) //201 - creation successful
+        //check if user with same googleI is available in DB
+        const usersLocated = await User.find({googleId:googleId})
+        if(usersLocated.length>0){
+            //user exists in DB
+            return res.send({
+                success:true,
+                message:'User Located in the DB',
+                usersLocatedLen:usersLocated.length,
+                usersLocatedName:usersLocated[0].name
+            })
+        }
+            
+        else{
+            //new user should be added to DB
+            
+            
+            const user = new User({
+                name,
+                googleId,
+                imageUrl
+            })
+                const newUser = await user.save();
+               // res.status(201).json(newUser) //201 - creation successful
+
+            //new group creation
+            const group = new Group({
+                groupName: name,
+                adminId: googleId
+            })
+            const newGroup = await group.save();
+            return res.send({
+                success:true,
+                message:'New user and group has been added to DB',        
+            })
+        }
     }
     catch (err) {
-        res.status(400).json({ message: err.message })//400 client side error - bad input
+        res.status(500).json({
+            message: err.message
+        })
     }
 })
 
@@ -69,3 +98,34 @@ router.delete('/:id', getById({ type: "user" }), async (req, res) => {
 })
 
 module.exports = router
+
+
+
+
+
+/*
+FOLLOWING METHODS DO NOT WORK DUE TO USER MODEL CHANGE
+
+
+
+//getiing a user
+router.get('/:id', getById({ type: "user" }), (req, res) => {
+    res.send(res.user)
+})
+
+//creating user
+router.post('/', async (req, res) => {
+    const user = new User({
+        username: req.body.username,
+        name: req.body.name,
+        password: req.body.password
+    })
+    try {
+        const newUser = await user.save();
+        res.status(201).json(newUser) //201 - creation successful
+    }
+    catch (err) {
+        res.status(400).json({ message: err.message })//400 client side error - bad input
+    }
+})
+*/
