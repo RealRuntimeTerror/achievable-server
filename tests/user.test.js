@@ -41,7 +41,7 @@ test('should get user by id', async() => {
     .expect(200)
     .then((response) => {
         
-        expect(response.body.username).toBe(user.username);
+        expect(response.body.googleId).toBe(user.googleId);
         expect(response.body.name).toBe(user.name);
         expect(response.body.password).toBe(user.password);
     })

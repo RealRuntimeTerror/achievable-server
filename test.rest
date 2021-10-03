@@ -2,31 +2,38 @@
 ## ACTIVITY ################################
 GET http://localhost:3000/activities
 
-###
+### getting all activities in a group
 
-GET http://localhost:3000/activities/614565c5fad5998553b03362
+GET http://localhost:3000/activities/6156ec51c32aaf8cdd973d0e
 
-###
+### Getting an activity from a group
 
-POST http://localhost:3000/activities
-Content-Type: : application/json
+GET http://localhost:3000/activities/6156ec51c32aaf8cdd973d0e/6156f08c4cecdfed43b1bcd1
 
-{
-    "activityName": "BioInfo",
-    "description": "L3S1 Module"
-}
+### add a new activity
 
-###
-
-DELETE http://localhost:3000/activities/6144d7210d23b6e550735521
-
-###
-
-PATCH http://localhost:3000/activities/614565dafad5998553b03365
+PATCH http://localhost:3000/activities/6157ea21b41c56708b0df902
 Content-Type: application/json
 
 {
-    "activityName": "Automata Theory"
+    "activityName": "Automata Theory",
+    "description": "theory about automatons",
+    "activityColor": "pink"
+}
+
+### Deleting 
+
+PATCH  http://localhost:3000/activities/del/6157ea21b41c56708b0df902/6157ed8f9aa33ecde2158420
+
+### Updating activity
+
+PATCH http://localhost:3000/activities/6157ea21b41c56708b0df902/61594fdcd2d3275d3bae3184
+Content-Type: application/json
+
+{
+    "activityName": "EDMS",
+    "description": "Edvanced DBMS",
+    "activityColor": "red"
 }
 
 
@@ -44,21 +51,67 @@ GET http://localhost:3000/users/614574e8339c997d94ef84e2
 GET http://localhost:3000/groups
 
 ###
-GET http://localhost:3000/groups/6149d25a013862749ae85cb9
+GET http://localhost:3000/groups/6156ec51c32aaf8cdd973d0e
 
 ###
 POST http://localhost:3000/groups
 Content-Type: application/json
 
 {
-    "groupName": "akirao",
+    "groupName": "alika",
     "adminId": "G0002"
 }
 
-### LOGS ############################################################
 ###
-GET http://localhost:3000/logs
+
+PATCH http://localhost:3000/groups/6156ec51c32aaf8cdd973d0e
+Content-Type: application/json
+
+{
+    "groupName": "Maths Study Group",
+    "adminId": "Pythagoras3",
+    "activities": {
+        "activityName": "CompMath",
+        "description": "computational maths"
+    }
+}
 
 ###
 
-GET http://localhost:3000/logs/61478567fffc4621652debf4
+PATCH http://localhost:3000/groups/6156ec51c32aaf8cdd973d0e
+Content-Type: application/json
+
+{
+    "activities": {
+        "activityName": "CompMath",
+        "description": "computational maths"
+    }
+}
+
+###
+
+DELETE http://localhost:3000/groups/6156de69f25094f0ec8d8d17
+
+
+### SESSions ############################################################
+###
+GET http://localhost:3000/sessions
+
+###
+
+GET http://localhost:3000/sessions/6157ea21b41c56708b0df902/61594fdcd2d3275d3bae3184
+
+
+### create session
+
+PATCH http://localhost:3000/sessions/ins/6157ea21b41c56708b0df902/61594fdcd2d3275d3bae3184
+Content-Type: application/json
+
+{
+    "userID": "G0046",
+    "duration": "10"
+}
+
+### Delete session
+
+PATCH  http://localhost:3000/sessions/del/6157ea21b41c56708b0df902/6157ed8f9aa33ecde2158420/61592ada534152111b953dfe

@@ -11,16 +11,20 @@ const sessionSchema = new Schema(
   { timestamps: true }
 );
 
+module.exports = sessionSchema;
+
 const activitySchema = new Schema(
   {
     activityName: { type: String, required: true},
     description: { type: String },
     activityColor: {type:String, default: "blue"},
     sessions: [{type: sessionSchema, default: null}]
+    //,sessions: [{type: Schema.Types.ObjectId, ref: 'session'}]
   },
   { timestamps: true }
 );
 
+module.exports = activitySchema;
 
 const groupSchema = new Schema(
   {

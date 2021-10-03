@@ -1,7 +1,8 @@
 const Activity = require('../models/activity.model')
 const User = require('../models/user.model')
-const Log = require('../models/log.model')
+const Log = require('../models/session.model')
 const Group = require('../models/group.model')
+const { Types } = require('mongoose')
 
 
 module.exports = function getById (types) {
@@ -9,7 +10,40 @@ module.exports = function getById (types) {
         return async function (req,res, next){
             var activity;
             try{
-                activity = await Activity.findById(req.params.id)
+                activity = await Group.aggregate([
+                    { $match: {"_id": Types.ObjectId(req.params.gid)}},
+                    { $unwind: "$activities"},
+                    { $match: {"activities._id": Types.ObjectId(req.params.aid)}},
+                    { $project: {
+                        activityId: '$activities._id',
+                          activityName: '$activities.activityName',
+                          description: '$activities.description',
+                          activityColor: '$activities.activityColor',
+                          sessions: '$activities.sessions',
+                          _id: 0,
+                        }
+                    },
+                ]);
+
+                if(activity == null){
+                    return res.status(404).json({message: 'cannot find activity'})
+                }
+            }
+            catch(err){
+                res.status(500).json({
+                    message: err.message
+                })
+            }
+            res.activity = activity;
+            next()
+        }
+        
+    }
+    else if(types.type === "activity_del"){
+        return async function (req,res, next){
+
+            try{
+              
                 if(activity == null){
                     return res.status(404).json({message: 'cannot find activity'})
                 }
@@ -41,12 +75,24 @@ module.exports = function getById (types) {
             next()
         }
     }
-    else if (types.type === "log"){
+    else if (types.type === "session"){
         return async function (req,res, next){
+            const groupID = Types.ObjectId(req.params.gid);
+            const activityID = Types.ObjectId(req.params.aid);
             try{
-                log = await Log.findById(req.params.id)
+                log = await Group.aggregate([
+                    { $match: {"_id": groupID }},
+                    { $unwind: "$activities"},
+                    { $match: {"activities._id": activityID}},
+                    { $project: {
+                          sessions: '$activities.sessions',
+                          _id: 0,
+                        }
+                    },
+                ]);
+
                 if(log == null){
-                    return res.status(404).json({message: 'cannot find log'})
+                    return res.status(404).json({message: 'cannot find session'})
                 }
             }
             catch(err){
