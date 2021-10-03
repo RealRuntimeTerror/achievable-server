@@ -8,9 +8,9 @@ const mongoose = require('mongoose')
 const activitiesRouter = require('./routes/activities')
 const groupsRouter = require('./routes/groups')
 const usersRouter = require('./routes/users')
-const logsRouter = require('./routes/logs')
+const sessionsRouter = require('./routes/sessions')
 
-mongoose.connect(process.env.DATABASE_URL,
+mongoose.connect(process.env.DATABASE_URL_LOCAL,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -28,6 +28,6 @@ app.use(express.json()) //lets server accept json
 app.use('/activities', activitiesRouter)
 app.use('/groups', groupsRouter)
 app.use('/users', usersRouter)
-app.use('/logs', logsRouter)
+app.use('/sessions', sessionsRouter)
 
 module.exports = app

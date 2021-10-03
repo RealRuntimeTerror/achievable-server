@@ -5,9 +5,12 @@ const User = require("../models/user.model")
 let user;
 
 const user1 = {  // for login checking
-    username: "user1",
+    googleId: "user1",
     name: "User One",
-    password: "1234567"
+    password: "1234567",
+    email: "user1@gmail.com",
+    imageUrl: "https://www.goo.gl",
+    activities: null
 }
 
 beforeEach( async() => {
@@ -18,9 +21,12 @@ beforeEach( async() => {
 test('should sign up for a user', async () => {
     await request(app).post('/users/')
     .send({
-        username: "test3",
+        googleId: "test3",
         name: "testName3",
-        password: "testPwd3"
+        password: "testPwd3",
+        email: "testName@gmail.com",
+        imageUrl: "https://youtu.be",
+        activities: null
     })
     .expect(201);
 })
@@ -35,7 +41,7 @@ test('should get user by id', async() => {
     .expect(200)
     .then((response) => {
         
-        expect(response.body.username).toBe(user.username);
+        expect(response.body.googleId).toBe(user.googleId);
         expect(response.body.name).toBe(user.name);
         expect(response.body.password).toBe(user.password);
     })
@@ -44,12 +50,12 @@ test('should get user by id', async() => {
 test('patch user id', async() => {
     await request(app).patch(`/users/${user.id}`)
     .send({
-        username: "Test4",
+        email: "Test4@gmail.com"
     })
     .expect(200)
     .then((response) => {
         
-        expect(response.body.username).toBe("Test4");
+        expect(response.body.email).toBe("Test4@gmail.com");
         expect(response.body.name).toBe(user.name);
         expect(response.body.password).toBe(user.password);
     })

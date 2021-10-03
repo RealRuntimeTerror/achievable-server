@@ -6,8 +6,8 @@ var group;
 
 const group1 = {
     groupName: "testgroup1",
-    members: ["uname1","uname2"],
-    activities: ["Act1", "Act2"]
+    members: null,
+    activities: null
 };
 
 
@@ -21,8 +21,8 @@ test('should add a new group', async() => {
     .send(
         {
             groupName: "testgroup1",
-            members: ["uname1","uname2"],
-            activities: ["Act1", "Act2"]
+            members: null,
+            activities: null
         }
     )
     .expect(201)

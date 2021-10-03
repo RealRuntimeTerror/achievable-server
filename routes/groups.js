@@ -23,7 +23,7 @@ router.get('/:id',getById({type: "group"}), (req,res) => {
 router.post('/', async (req,res) => {
     const group = new Group({
         groupName: req.body.groupName,
-        members: req.body.members,
+        adminId: req.body.adminId,
         activities: req.body.activities
     })
     try{
@@ -38,13 +38,13 @@ router.post('/', async (req,res) => {
 //updating group --> patch cause we only want to update one field
 router.patch('/:id', getById({type: "group"}), async (req,res) => {
     if (req.body.groupname != null){
-        res.group.groupname = req.body.groupname
+        res.group.groupName = req.body.groupName
     }
-    if (req.body.name != null){
-        res.group.name = req.body.name
+    if (req.body.adminId != null){
+        res.group.adminId = req.body.adminId
     }
-    if (req.body.password != null){
-        res.group.password = req.body.password
+    if (req.body.activities != null){
+        res.group.activities.push(req.body.activities)
     }
     try{
         const updatedGroup = await res.group.save()
