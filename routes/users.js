@@ -37,8 +37,6 @@ router.post('/auth', async (req, res) => {
             
         else{
             //new user should be added to DB
-            
-            
             const user = new User({
                 name,
                 googleId,
@@ -50,12 +48,22 @@ router.post('/auth', async (req, res) => {
             //new group creation
             const group = new Group({
                 groupName: name,
-                adminId: googleId
+                adminId: googleId,
+                members:[googleId] //1st member at time of creation
             })
             const newGroup = await group.save();
+
+            //update group info in user profile
+            let createdGroup = await Group.findOne({groupName: name});
+            let userUpdate = await User.findOneAndUpdate({googleId:googleId}, 
+                {groupList:[createdGroup._id]}, 
+                {
+                new: true
+              });
             return res.send({
                 success:true,
-                message:'New user and group has been added to DB',        
+                message:'New user and group has been added to DB',
+                createdGroupid:createdGroup._id
             })
         }
     }
