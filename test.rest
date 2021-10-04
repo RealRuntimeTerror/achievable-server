@@ -58,7 +58,7 @@ POST http://localhost:3000/groups
 Content-Type: application/json
 
 {
-    "groupName": "alika",
+    "groupName": "akila",
     "adminId": "G0002"
 }
 

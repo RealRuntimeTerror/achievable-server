@@ -7,7 +7,7 @@ const userSchema = new Schema(
     googleId: { type: String, required: true, unique: true },
     name: { type: String, default: "" },
     imageUrl: {type: String, default:""},
-    groupList: [{type:String, default: null}]
+    groupList: [{type:String, default: null, ref: 'group'}]
   },
   {
     timestamps: true,
