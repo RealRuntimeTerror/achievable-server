@@ -11,7 +11,7 @@ const groupsRouter = require('./routes/groups')
 const usersRouter = require('./routes/users')
 const sessionsRouter = require('./routes/sessions')
 
-mongoose.connect(process.env.DATABASE_URL,
+mongoose.connect(process.env.DATABASE_URL_LOCAL,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
