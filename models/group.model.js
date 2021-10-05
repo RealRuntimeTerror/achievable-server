@@ -31,6 +31,7 @@ const groupSchema = new Schema(
     groupName: { type: String, required: true },
     adminId: {type: String, required: true},
     activities: [{type:activitySchema, default: null}],
+    members: [{type:String, ref: 'users'}]
   },
   {
     timestamps: true,
