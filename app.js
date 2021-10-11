@@ -11,21 +11,22 @@ const groupsRouter = require('./routes/groups')
 const usersRouter = require('./routes/users')
 const sessionsRouter = require('./routes/sessions')
 
-mongoose.connect(process.env.DATABASE_URL_LOCAL,
+app.use(cors({
+  origin: '*'
+}));
+
+mongoose.connect(process.env.DATABASE_URL,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }
 );
 
-const db = mongoose.connection
+const db = mongoose.connection;
 
 db.on('error', (error) => console.error(error))
-db.once('open', () => console.log('db opened'))
+db.once('open', async() => await console.log('db opened'))
 
-app.use(cors({
-  origin: '*'
-}))
 
 app.use(express.json()) //lets server accept json
 

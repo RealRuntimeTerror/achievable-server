@@ -7,10 +7,7 @@ let user;
 const user1 = {  // for login checking
     googleId: "user1",
     name: "User One",
-    password: "1234567",
-    email: "user1@gmail.com",
-    imageUrl: "https://www.goo.gl",
-    activities: null
+    imageUrl: "https://www.goo.gl"
 }
 
 beforeEach( async() => {
@@ -18,18 +15,15 @@ beforeEach( async() => {
     user = await User(user1).save()
 })
 
-test('should sign up for a user', async () => {
-    await request(app).post('/users/')
-    .send({
-        googleId: "test3",
-        name: "testName3",
-        password: "testPwd3",
-        email: "testName@gmail.com",
-        imageUrl: "https://youtu.be",
-        activities: null
-    })
-    .expect(201);
-})
+// test('should sign up for a user', async () => {
+//     await request(app).post('/users/')
+//     .send({
+//         googleId: "test3",
+//         name: "testName3",
+//         imageUrl: "https://youtu.be"
+//     })
+//     .expect(201);
+// })
 
 test('should show user\'s details', async() =>{
     await request(app).get('/users/')
@@ -43,20 +37,19 @@ test('should get user by id', async() => {
         
         expect(response.body.googleId).toBe(user.googleId);
         expect(response.body.name).toBe(user.name);
-        expect(response.body.password).toBe(user.password);
+        expect(response.body.imageUrl).toBe(user.imageUrl);
     })
 });
 
 test('patch user id', async() => {
     await request(app).patch(`/users/${user.id}`)
     .send({
-        email: "Test4@gmail.com"
+        imageUrl: "https://fb.com"
     })
     .expect(200)
     .then((response) => {
         
-        expect(response.body.email).toBe("Test4@gmail.com");
+        expect(response.body.imageUrl).toBe("https://fb.com");
         expect(response.body.name).toBe(user.name);
-        expect(response.body.password).toBe(user.password);
     })
 });
