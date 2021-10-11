@@ -8,7 +8,7 @@ const {Types} = require('mongoose')
 //getting all logs
 router.get('/', async (req,res) => {
     try{
-        const logs = await sessionSchema.find()
+        const logs = await Group.find();
         res.json(logs)
     }
     catch (err){
@@ -55,9 +55,7 @@ router.patch('/up/:gid/:aid', async (req,res) => {
     if (req.body.name != null){
         res.log.name = req.body.name
     }
-    if (req.body.password != null){
-        res.log.password = req.body.password
-    }
+    
     try{
         const updatedsessionSchema = await res.log.save()
         res.json(updatedsessionSchema)
