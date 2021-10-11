@@ -1,51 +1,3 @@
-###
-## ACTIVITY ################################
-GET http://localhost:3000/activities
-
-### getting all activities in a group
-
-GET http://localhost:3000/activities/6156ec51c32aaf8cdd973d0e
-
-### Getting an activity from a group
-
-GET http://localhost:3000/activities/6156ec51c32aaf8cdd973d0e/6156f08c4cecdfed43b1bcd1
-
-### add a new activity
-
-PATCH http://localhost:3000/activities/6157ea21b41c56708b0df902
-Content-Type: application/json
-
-{
-    "activityName": "Automata Theory",
-    "description": "theory about automatons",
-    "activityColor": "pink"
-}
-
-### Deleting 
-
-PATCH  http://localhost:3000/activities/del/6157ea21b41c56708b0df902/6157ed8f9aa33ecde2158420
-
-### Updating activity
-
-PATCH http://localhost:3000/activities/6157ea21b41c56708b0df902/61594fdcd2d3275d3bae3184
-Content-Type: application/json
-
-{
-    "activityName": "EDMS",
-    "description": "Edvanced DBMS",
-    "activityColor": "red"
-}
-
-
-### USERS ######################################################
-###
-GET http://localhost:3000/users
-
-###
-
-GET http://localhost:3000/users/614574e8339c997d94ef84e2
-
-
 ### GROUPS ########################################################
 ###
 GET http://localhost:3000/groups
@@ -91,6 +43,55 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3000/groups/6156de69f25094f0ec8d8d17
+
+
+###
+## ACTIVITY ################################
+GET http://localhost:3000/activities
+
+### getting all activities in a group
+
+GET http://localhost:3000/activities/615da891be0f3e036dfcbbbb
+
+### Getting an activity from a group
+
+GET http://localhost:3000/activities/615da891be0f3e036dfcbbbb/615da891be0f3e036dfcbba2
+
+### add a new activity
+
+PATCH http://localhost:3000/activities/615dad805a09e7dc48c38967
+Content-Type: application/json
+
+{
+    "activityName": "Automata Theory2",
+    "description": "theory about automatons2",
+    "activityColor": "pink2"
+}
+
+### Deleting 
+
+PATCH  http://localhost:3000/activities/615da891be0f3e036dfcbbbb/615da891be0f3e036dfcbba2
+
+### Updating activity
+
+PATCH http://localhost:3000/activities/615dad805a09e7dc48c38967/615dadf4cdced9282792fe90
+Content-Type: application/json
+
+{
+    "activityName": "EDMS",
+    "description": "Edvanced DBMS",
+    "activityColor": "red"
+}
+
+
+### USERS ######################################################
+###
+GET http://localhost:3000/users
+
+###
+
+GET http://localhost:3000/users/614574e8339c997d94ef84e2
+
 
 
 ### SESSions ############################################################

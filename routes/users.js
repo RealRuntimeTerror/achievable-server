@@ -17,6 +17,11 @@ router.get('/', async (req, res) => {
     }
 })
 
+//getiing a user
+router.get('/:id', getById({ type: "user" }), (req, res) => {
+    res.send(res.user)
+})
+
 //User sign-in/ sign-up
 router.post('/auth', async (req, res) => {
     const { body } = req;
@@ -76,14 +81,14 @@ router.post('/auth', async (req, res) => {
 
 //updating user --> patch cause we only want to update one field
 router.patch('/:id', getById({ type: "user" }), async (req, res) => {
-    if (req.body.username != null) {
-        res.user.username = req.body.username
+    if (req.body.googleId != null) {
+        res.user.googleId = req.body.googleId
     }
     if (req.body.name != null) {
         res.user.name = req.body.name
     }
-    if (req.body.password != null) {
-        res.user.password = req.body.password
+    if (req.body.imageUrl != null) {
+        res.user.imageUrl = req.body.imageUrl
     }
     try {
         const updatedUser = await res.user.save()
@@ -114,12 +119,6 @@ module.exports = router
 /*
 FOLLOWING METHODS DO NOT WORK DUE TO USER MODEL CHANGE
 
-
-
-//getiing a user
-router.get('/:id', getById({ type: "user" }), (req, res) => {
-    res.send(res.user)
-})
 
 //creating user
 router.post('/', async (req, res) => {

@@ -6,23 +6,21 @@ var group;
 
 const group1 = {
     groupName: "testgroup1",
-    members: null,
-    activities: null
+    adminId: "Admin1"
 };
-
 
 beforeEach( async() => {
     await Group.deleteMany({})
     group = await Group(group1).save();
 })
 
+
 test('should add a new group', async() => {
     await request(app).post('/groups/')
     .send(
         {
-            groupName: "testgroup1",
-            members: null,
-            activities: null
+            groupName: "newGroup",
+            adminId: "G0001"
         }
     )
     .expect(201)
@@ -37,15 +35,14 @@ test('should show 1 group', async() => {
     })
 })
 
-test('verify get by id', async() => {
+test('verify get group by id', async() => {
 
     await request(app).get(`/groups/${group.id}`)
     .expect(200)
     .then((response) => {
         
         expect(response.body.groupName).toBe(group.groupName);
-        expect(response.body.members).toEqual(group.members);
-        expect(response.body.activities).toEqual(group.activities);
+        expect(response.body.adminId).toBe(group.adminId);
     })
 });
 
