@@ -3,7 +3,7 @@
 GET http://localhost:3000/groups
 
 ###
-GET http://localhost:3000/groups/6156ec51c32aaf8cdd973d0e
+GET http://localhost:3000/groups/615ad5b01f4f1e2ab30fe2f0
 
 ###
 POST http://localhost:3000/groups
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:3000/groups/6156ec51c32aaf8cdd973d0e
+PATCH http://localhost:3000/groups/61647e615c789f2ece2088d0
 Content-Type: application/json
 
 {
@@ -51,7 +51,7 @@ GET http://localhost:3000/activities
 
 ### getting all activities in a group
 
-GET http://localhost:3000/activities/615da891be0f3e036dfcbbbb
+GET http://localhost:3000/activities/615ad5b01f4f1e2ab30fe2f0
 
 ### Getting an activity from a group
 
@@ -59,13 +59,13 @@ GET http://localhost:3000/activities/615da891be0f3e036dfcbbbb/615da891be0f3e036d
 
 ### add a new activity
 
-PATCH http://localhost:3000/activities/615dad805a09e7dc48c38967
+PATCH http://localhost:3000/activities/615ad5b01f4f1e2ab30fe2f0
 Content-Type: application/json
 
 {
-    "activityName": "Automata Theory2",
-    "description": "theory about automatons2",
-    "activityColor": "pink2"
+    "activityName": "EAD",
+    "description": "EEAADD",
+    "activityColor": "pink"
 }
 
 ### Deleting 
@@ -100,19 +100,19 @@ GET http://localhost:3000/sessions
 
 ###
 
-GET http://localhost:3000/sessions/6157ea21b41c56708b0df902/61594fdcd2d3275d3bae3184
+GET http://localhost:3000/sessions/61647e615c789f2ece2088d0/61647fd9a9165db28aaa3aea
 
 
 ### create session
 
-PATCH http://localhost:3000/sessions/ins/6157ea21b41c56708b0df902/61594fdcd2d3275d3bae3184
+PATCH http://localhost:3000/sessions/ins/61647e615c789f2ece2088d0/61647fd9a9165db28aaa3aea
 Content-Type: application/json
 
 {
-    "userID": "G0046",
-    "duration": "10"
+    "userID": "G0047",
+    "duration": "11"
 }
 
 ### Delete session
 
-PATCH  http://localhost:3000/sessions/del/6157ea21b41c56708b0df902/6157ed8f9aa33ecde2158420/61592ada534152111b953dfe
+PATCH  http://localhost:3000/sessions/del/61647e615c789f2ece2088d0/61647fd9a9165db28aaa3aea/61648023a9165db28aaa3aec

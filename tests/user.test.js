@@ -1,6 +1,7 @@
 const request = require('supertest')
 const app = require('../app')
 const User = require("../models/user.model")
+jest.setTimeout(6000);
 
 let user;
 
