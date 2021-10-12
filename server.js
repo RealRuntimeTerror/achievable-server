@@ -1,3 +1,3 @@
-const app = require('./app')
+const app = require("./app");
 
-app.listen(3000, console.log("Server started"))
+app.listen(process.env.PORT, console.log("Server started"));
