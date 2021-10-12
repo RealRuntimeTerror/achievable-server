@@ -1,4 +1,5 @@
 const request = require('supertest')
+const mongoose = require('mongoose');
 const app = require('../app');
 const Activity = require('../models/activity.model');
 const Group = require('../models/group.model');
@@ -19,7 +20,11 @@ const group2 = {
 beforeEach(async () => {
     await Group.deleteMany({})
     group = await Group(group2).save();
-})
+});
+
+afterAll( async() => {
+    await mongoose.connection.close();
+});
 
 test('should add a new activity', async () => {
     await request(app).patch(`/activities/${group.id}`)

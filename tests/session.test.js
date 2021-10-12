@@ -1,5 +1,6 @@
 const request = require('supertest')
 const app = require('../app')
+const mongoose = require('mongoose');
 const Activity = require('../models/activity.model');
 const Session = require('../models/session.model');
 const Group = require('../models/group.model');
@@ -26,8 +27,11 @@ const group3 = {
 beforeEach( async() => {
     await Group.deleteMany({})
     log = await Group(group3).save()
-})
+});
 
+afterAll( async() => {
+    mongoose.connection.close();
+});
 
 test('should get all the logs in an activity by id', async() => {
     await request(app).get(`/sessions/${log.id}/${log.activities[0].id}`)
