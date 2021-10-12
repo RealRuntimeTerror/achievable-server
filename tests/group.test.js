@@ -1,6 +1,7 @@
 const request = require('supertest')
 const app = require('../app')
 const Group = require('../models/group.model')
+jest.setTimeout(6000);
 
 var group; 
 
@@ -16,6 +17,7 @@ beforeEach( async() => {
 
 
 test('should add a new group', async() => {
+    
     await request(app).post('/groups/')
     .send(
         {

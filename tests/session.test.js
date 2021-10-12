@@ -2,7 +2,8 @@ const request = require('supertest')
 const app = require('../app')
 const Activity = require('../models/activity.model');
 const Session = require('../models/session.model');
-const Group = require('../models/group.model')
+const Group = require('../models/group.model');
+jest.setTimeout(6000);
 let log; 
 
 const session1 = new Session({
