@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const request = require('supertest')
 const app = require('../app')
 const Group = require('../models/group.model')
@@ -13,7 +14,11 @@ const group1 = {
 beforeEach( async() => {
     await Group.deleteMany({})
     group = await Group(group1).save();
-})
+});
+
+afterAll( async() => {
+    mongoose.connection.close();
+});
 
 
 test('should add a new group', async() => {
