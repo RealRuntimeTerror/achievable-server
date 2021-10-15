@@ -6,7 +6,8 @@
   "scripts": {
     "test": "env-cmd -f ./config/test.env jest --detectOpenHandles",
     "dev": "env-cmd -f ./config/dev.env nodemon",
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon server.js",
+    "start": "env-cmd -f ./config/dev.env nodemon"
   },
   "jest": {
     "testEnvironment": "node"
