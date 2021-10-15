@@ -15,17 +15,21 @@ app.use(cors({
   origin: '*'
 }));
 
-mongoose.connect(process.env.DATABASE_URL,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }
-);
+async function func() {
+  await mongoose.connect(process.env.DATABASE_URL,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }
+  );
+}
+
+func();
 
 const db = mongoose.connection;
 
 db.on('error', (error) => console.error(error))
-db.once('open', async() => await console.log('db opened'))
+db.once('open', async () => await console.log('db opened'))
 
 
 app.use(express.json()) //lets server accept json

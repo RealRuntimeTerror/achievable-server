@@ -2,11 +2,32 @@ const express = require('express')
 const router = express.Router()
 const Group = require('../models/group.model')
 const getById = require('../middleware/get-by-id')
+const User = require('../models/user.model')
 
 //getting all groups
 router.get('/', async (req,res) => {
     try{
         const groups = await Group.find()
+        res.json(groups)
+    }
+    catch (err){
+        res.status(500).json({message: err.message})
+    }
+})
+//getting all groups + admin info
+router.get('/admin', async (req,res) => {
+    try{
+        const groups = await Group.aggregate([
+            {
+              $lookup:
+                {
+                  from: User.collection.name,
+                  localField: "adminId",
+                  foreignField: "googleId",
+                  as: "adminData"
+                }
+           }
+         ])
         res.json(groups)
     }
     catch (err){
