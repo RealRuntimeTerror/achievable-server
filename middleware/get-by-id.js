@@ -102,6 +102,23 @@ module.exports = function getById (types) {
             next()
         }
     }
+    else if (types.type == "Guser"){
+        return async function (req,res, next){
+            try{
+                user = await User.findOne({googleId: req.params.id})
+                if(user == null){
+                    return res.status(404).json({message: 'cannot find google user'})
+                }
+            }
+            catch(err){
+                res.status(500).json({
+                    message: err.message
+                })
+            }
+            res.user = user
+            next()
+        }
+    }
     else {
         return async function (req,res, next){
             try{

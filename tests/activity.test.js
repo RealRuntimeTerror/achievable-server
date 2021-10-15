@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const app = require('../app');
 const Activity = require('../models/activity.model');
 const Group = require('../models/group.model');
-jest.setTimeout(6000);
+jest.setTimeout(8000);
 var group;
 
 const activity1 = new Activity({

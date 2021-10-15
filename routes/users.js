@@ -22,6 +22,11 @@ router.get('/:id', getById({ type: "user" }), (req, res) => {
     res.send(res.user)
 })
 
+//getiing a user by googleID
+router.get('/google/:id', getById({ type: "Guser" }), (req, res) => {
+    res.send(res.user)
+})
+
 //User sign-in/ sign-up
 router.post('/auth', async (req, res) => {
     const { body } = req;
