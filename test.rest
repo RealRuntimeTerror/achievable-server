@@ -42,8 +42,11 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/groups/6156de69f25094f0ec8d8d17
+DELETE http://localhost:3000/groups/6156de69f25094f0ec8d8d177
 
+### GeT grousps where user is in
+
+GET http://localhost:3000/groups/user/111397724431360805950
 
 ###
 ## ACTIVITY ################################
@@ -90,7 +93,12 @@ GET http://localhost:3000/users
 
 ###
 
-GET http://localhost:3000/users/614574e8339c997d94ef84e2
+GET http://localhost:3000/users/116441338026127985518
+
+
+### google Id
+
+GET http://localhost:3000/users/google/116441338026127985518
 
 
 

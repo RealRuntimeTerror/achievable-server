@@ -75,6 +75,36 @@ module.exports = function getById (types) {
             next()
         }
     }
+    else if (types.type === "Usergroup"){
+        return async function (req,res, next){
+            try{
+                group = await Group.aggregate([
+                    //{$or:[{"adminId": req.params.uid},{"members": req.params.uid}]},
+                    {$match: {$or : [{"adminId": req.params.uid},{"members": req.params.uid}]}},
+                    {
+                        $lookup:
+                          {
+                            from: User.collection.name,
+                            localField: "adminId",
+                            foreignField: "googleId",
+                            as: "adminData"
+                          }
+                    }
+                ]);
+            
+                if(group == null){
+                    return res.status(404).json({message: 'cannot find group'})
+                }
+            }
+            catch(err){
+                res.status(500).json({
+                    message: err.message
+                })
+            }
+            res.group = group
+            next()
+        }
+    }
     else if (types.type === "session"){
         return async function (req,res, next){
             const groupID = Types.ObjectId(req.params.gid);

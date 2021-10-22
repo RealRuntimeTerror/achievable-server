@@ -35,6 +35,11 @@ router.get('/admin', async (req,res) => {
     }
 })
 
+//getting only groups that the user is in 
+router.get('/user/:uid',getById({type: "Usergroup"}), (req,res) => {
+    res.send(res.group)
+})
+
 //getiing a group
 router.get('/:id',getById({type: "group"}), (req,res) => {
     res.send(res.group)
