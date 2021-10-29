@@ -62,6 +62,28 @@ router.get('/user/:uid', getById({ type: "Usergroup" }), (req, res) => {
     res.send(res.group)
 })
 
+//searching only the groups that the user is in 
+router.get('/my/:uid/:query', async (req, res) => {
+    try {
+        const groups = await Group.aggregate([
+            {$match: {$and:[{groupName: {$regex: '.*' + req.params.query + '.*', $options: 'ix'}},{$or : [{"adminId": req.params.uid},{"members": req.params.uid}]}]}},
+            {
+                $lookup:
+                {
+                    from: User.collection.name,
+                    localField: "adminId",
+                    foreignField: "googleId",
+                    as: "adminData"
+                }
+            }
+        ]).limit(5)
+        res.json(groups)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
 //getiing a group
 router.get('/:id', getById({ type: "group" }), (req, res) => {
     res.send(res.group)
