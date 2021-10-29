@@ -48,8 +48,25 @@ DELETE http://localhost:3000/groups/6156de69f25094f0ec8d8d177
 
 GET http://localhost:3000/groups/user/111397724431360805950
 
-###
-## ACTIVITY ################################
+### join group
+PATCH http://localhost:3000/groups/join/6172b1435109188c6dc2d67a
+Content-Type: application/json
+
+{
+    "googleId":"111397724431360805950"
+}
+
+
+### Leave group 
+PATCH http://localhost:3000/groups/leave/6165896c1eefb99175380180
+Content-Type: application/json
+
+{
+    "googleId":"116441338026127985518"
+}
+
+#############################################
+### ACTIVITY ################################
 GET http://localhost:3000/activities
 
 ### getting all activities in a group
@@ -90,6 +107,9 @@ Content-Type: application/json
 ### USERS ######################################################
 ###
 GET http://localhost:3000/users
+
+### get all with only name and id except the user
+GET http://localhost:3000/users/list/116441338026127985518
 
 ###
 
