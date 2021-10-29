@@ -17,6 +17,19 @@ router.get('/', async (req, res) => {
     }
 })
 
+//getting all usernames and Ids
+router.get('/list/:uid', async (req, res) => {
+    try {
+        const users = await (await User.find({}, 'googleId name')).filter((u) => u.googleId != req.params.uid )
+        res.json(users)
+    }
+    catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
+})
+
 //getiing a user
 router.get('/:id', getById({ type: "user" }), (req, res) => {
     res.send(res.user)
