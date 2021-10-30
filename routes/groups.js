@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     }
 })
 //getting all groups + admin info
-router.get('/admin', async (req, res) => {
+router.get('/search', async (req, res) => {
     try {
         const groups = await Group.aggregate([
             {
@@ -63,7 +63,7 @@ router.get('/user/:uid', getById({ type: "Usergroup" }), (req, res) => {
 })
 
 //searching only the groups that the user is in 
-router.get('/my/:uid/:query', async (req, res) => {
+router.get('/user/:uid/:query', async (req, res) => {
     try {
         const groups = await Group.aggregate([
             {$match: {$and:[{groupName: {$regex: '.*' + req.params.query + '.*', $options: 'ix'}},{$or : [{"adminId": req.params.uid},{"members": req.params.uid}]}]}},
