@@ -60,6 +60,7 @@ module.exports = function getById (types) {
     }
     else if (types.type === "group"){
         return async function (req,res, next){
+            var group;
             try{
                 group = await Group.findById(req.params.id)
                 if(group == null){
@@ -71,7 +72,7 @@ module.exports = function getById (types) {
                     message: err.message
                 })
             }
-            res.group = group
+            res.group = group;
             next()
         }
     }

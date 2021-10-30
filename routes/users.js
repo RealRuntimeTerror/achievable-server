@@ -17,7 +17,19 @@ router.get('/', async (req, res) => {
     }
 })
 
-//getting all usernames and Ids
+//getting all usernames and Ids that match the search
+router.get('/list/:uid/:query', async (req, res) => {
+    try {
+        const users = await (await User.find({name: {$regex: '.*' + req.params.query + '.*', $options: 'ix'}}, 'googleId name')).filter((u) => u.googleId != req.params.uid )
+        res.json(users)
+    }
+    catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
+})
+//getting all usernames and ids 
 router.get('/list/:uid', async (req, res) => {
     try {
         const users = await (await User.find({}, 'googleId name')).filter((u) => u.googleId != req.params.uid )
@@ -29,6 +41,7 @@ router.get('/list/:uid', async (req, res) => {
         })
     }
 })
+
 
 //getiing a user
 router.get('/:id', getById({ type: "user" }), (req, res) => {
